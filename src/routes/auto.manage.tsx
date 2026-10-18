@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { supabase } from "@/integrations/supabase/client";
-import { lovable } from "@/integrations/lovable";
 import { claimAdmin, deleteCar, formatPrice, getRawCar, listCars, saveCar, uploadCarPhoto, type CarInput } from "@/lib/cars";
 
 export const Route = createFileRoute("/auto/manage")({
@@ -84,7 +83,6 @@ function SignIn() {
   return (
     <form onSubmit={submit} className="mt-8 max-w-md space-y-4 border border-border bg-card p-6">
       <p className="text-sm text-muted-foreground">Sign in to post cars. The first account to sign in becomes the owner.</p>
-      <Button type="button" variant="outline" className="w-full" onClick={() => lovable.auth.signInWithOAuth("google", { redirect_uri: `${window.location.origin}/auto/manage` })}>Continue with Google</Button>
       <Input type="email" required placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
       <Input type="password" required minLength={6} placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
       {msg && <p className="text-sm text-primary">{msg}</p>}
