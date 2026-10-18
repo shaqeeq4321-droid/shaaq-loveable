@@ -21,8 +21,9 @@ export const saveQuote = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const since = new Date(Date.now() - 10 * 60 * 1000).toISOString();
-    const { count, error: limitError } = await supabaseAdmin.from("quote_requests").select("id", { count: "exact", head: true }).eq("email", data.email).gte("created_at", since);
-    if (limitError) { console.error("[supabase limit check]", limitError.code, limitError.message, limitError.details, limitError.hint); throw new Error("Unable to check your enquiry. Please try again."); }
+    const { data: recent, status: limitStatus, error: limitError } = await supabaseAdmin.from("quote_requests").select("id").eq("email", data.email).gte("created_at", since).limit(10);
+    const count = recent?.length ?? 0;
+    if (limitError) { console.error("[supabase limit check] http", limitStatus, JSON.stringify(limitError)); throw new Error("Unable to check your enquiry. Please try again."); }
     if ((count ?? 0) >= 5) throw new Error("Please wait a few minutes before sending another enquiry.");
     const { error } = await supabaseAdmin.from("quote_requests").insert(data);
     if (error) { console.error("[supabase insert]", error.code, error.message, error.details, error.hint); throw new Error("Unable to save your enquiry. Please try again."); }
@@ -39,8 +40,9 @@ export const saveAppointment = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const since = new Date(Date.now() - 10 * 60 * 1000).toISOString();
-    const { count, error: limitError } = await supabaseAdmin.from("appointments").select("id", { count: "exact", head: true }).eq("email", data.email).gte("created_at", since);
-    if (limitError) { console.error("[supabase limit check]", limitError.code, limitError.message, limitError.details, limitError.hint); throw new Error("Unable to check your appointment. Please try again."); }
+    const { data: recent, status: limitStatus, error: limitError } = await supabaseAdmin.from("appointments").select("id").eq("email", data.email).gte("created_at", since).limit(10);
+    const count = recent?.length ?? 0;
+    if (limitError) { console.error("[supabase limit check] http", limitStatus, JSON.stringify(limitError)); throw new Error("Unable to check your appointment. Please try again."); }
     if ((count ?? 0) >= 5) throw new Error("Please wait a few minutes before requesting another visit.");
     const { error } = await supabaseAdmin.from("appointments").insert(data);
     if (error) { console.error("[supabase insert]", error.code, error.message, error.details, error.hint); throw new Error("Unable to save your appointment. Please try again."); }
@@ -57,8 +59,9 @@ export const saveVehicleEnquiry = createServerFn({ method: "POST" })
   .handler(async ({ data }) => {
     const { supabaseAdmin } = await import("@/integrations/supabase/client.server");
     const since = new Date(Date.now() - 10 * 60 * 1000).toISOString();
-    const { count, error: limitError } = await supabaseAdmin.from("vehicle_enquiries").select("id", { count: "exact", head: true }).eq("email", data.email).gte("created_at", since);
-    if (limitError) { console.error("[supabase limit check]", limitError.code, limitError.message, limitError.details, limitError.hint); throw new Error("Unable to check your enquiry. Please try again."); }
+    const { data: recent, status: limitStatus, error: limitError } = await supabaseAdmin.from("vehicle_enquiries").select("id").eq("email", data.email).gte("created_at", since).limit(10);
+    const count = recent?.length ?? 0;
+    if (limitError) { console.error("[supabase limit check] http", limitStatus, JSON.stringify(limitError)); throw new Error("Unable to check your enquiry. Please try again."); }
     if ((count ?? 0) >= 5) throw new Error("Please wait a few minutes before sending another enquiry.");
     if (data.vehicle_id) {
       const { data: car } = await supabaseAdmin.from("cars").select("title").eq("id", data.vehicle_id).eq("published", true).maybeSingle();
