@@ -1,4 +1,5 @@
 import { Check, Send } from "lucide-react";
+import { PhoneInput } from "@/components/phone-input";
 import { useState, type FormEvent } from "react";
 
 import { submitQuoteRequest } from "@/lib/submissions";
@@ -50,7 +51,7 @@ export function QuoteForm({ initialStyle = "" }: { initialStyle?: string }) {
         <Field label="Your name" htmlFor="name" required><Input id="name" name="name" autoComplete="name" required /></Field>
         <Field label="Company / business" htmlFor="company"><Input id="company" name="company" autoComplete="organization" /></Field>
         <Field label="Email address" htmlFor="email" required><Input id="email" name="email" type="email" autoComplete="email" required /></Field>
-        <Field label="Phone number" htmlFor="phone"><Input id="phone" name="phone" type="tel" autoComplete="tel" /></Field>
+        <Field label="Phone number" htmlFor="phone"><PhoneInput id="phone" /></Field>
         <Field label="Garment type" htmlFor="garment" required><select id="garment" name="garment" required className="flex h-10 w-full border border-input bg-card px-3 text-sm"><option>Formal shirt</option><option>T-shirt</option><option>Collared polo shirt</option><option>Trousers</option><option>Tuxedo & dinner suit</option><option>Mixed order</option></select></Field>
         <Field label="Style(s) of interest" htmlFor="styles" required><Input id="styles" name="styles" defaultValue={initialStyle} placeholder="e.g. The Mayfair, white poplin" required /></Field>
         <Field label="Fabric quality needed" htmlFor="fabric_notes" className="sm:col-span-2"><Textarea id="fabric_notes" name="fabric_notes" rows={3} placeholder="Composition, weight, weave, colour or a fabric to match." /></Field>

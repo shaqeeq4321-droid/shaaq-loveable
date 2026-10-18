@@ -1,4 +1,5 @@
 import { Check, ImageUp, Loader2, RotateCcw, Send, Trash2 } from "lucide-react";
+import { PhoneInput } from "@/components/phone-input";
 import { useEffect, useRef, useState, type FormEvent, type PointerEvent as ReactPointerEvent } from "react";
 
 import { OptionButton } from "@/components/option-button";
@@ -231,7 +232,7 @@ export function GarmentBuilder({ initialGarment }: { initialGarment?: string }) 
             <div className="space-y-2"><Label htmlFor="name">Your name <span className="text-primary">*</span></Label><Input id="name" name="name" autoComplete="name" required /></div>
             <div className="space-y-2"><Label htmlFor="company">Company / boutique</Label><Input id="company" name="company" autoComplete="organization" /></div>
             <div className="space-y-2"><Label htmlFor="email">Email address <span className="text-primary">*</span></Label><Input id="email" name="email" type="email" autoComplete="email" required /></div>
-            <div className="space-y-2"><Label htmlFor="phone">Phone number</Label><Input id="phone" name="phone" type="tel" autoComplete="tel" /></div>
+            <div className="space-y-2"><Label htmlFor="phone">Phone number</Label><PhoneInput id="phone" /></div>
             <div className="space-y-2"><Label htmlFor="quantity">Number of pieces <span className="text-primary">*</span></Label><Input id="quantity" name="quantity" type="number" min="1" placeholder="e.g. 250" required /></div>
             <div className="space-y-2"><Label htmlFor="sizes">Sizes required</Label><Input id="sizes" name="sizes" placeholder="e.g. S–XXL, or 15–18 inch collar" /></div>
             <div className="space-y-2 sm:col-span-2"><Label htmlFor="message">Anything else</Label><Textarea id="message" name="message" rows={4} placeholder="Delivery timings, packaging, sampling needs or questions." /></div>

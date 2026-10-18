@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { PhoneInput } from "@/components/phone-input";
 import { Check, Loader2, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -27,7 +28,7 @@ export function VehicleEnquiryForm({ vehicleId, vehicleTitle }: { vehicleId?: st
   return <form onSubmit={submit} className="grid gap-5">
     <div><Label htmlFor="ve-name">Your name *</Label><Input id="ve-name" name="name" autoComplete="name" required className="mt-2" /></div>
     <div><Label htmlFor="ve-email">Email address *</Label><Input id="ve-email" name="email" type="email" autoComplete="email" required className="mt-2" /></div>
-    <div><Label htmlFor="ve-phone">Phone number</Label><Input id="ve-phone" name="phone" type="tel" autoComplete="tel" className="mt-2" /></div>
+    <div><Label htmlFor="ve-phone">Phone number</Label><PhoneInput id="ve-phone" className="mt-2" /></div>
     {!vehicleTitle && <div><Label htmlFor="ve-vehicle">Make / model you are looking for *</Label><Input id="ve-vehicle" name="desired_vehicle" required placeholder="e.g. Volkswagen Golf, automatic" className="mt-2" /></div>}
     <div><Label htmlFor="ve-budget">Budget (£)</Label><Input id="ve-budget" name="budget" placeholder="e.g. £10,000–£15,000" className="mt-2" /></div>
     <div><Label htmlFor="ve-message">Your requirements / questions *</Label><Textarea id="ve-message" name="message" required rows={4} className="mt-2" /></div>

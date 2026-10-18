@@ -1,4 +1,5 @@
 import { CalendarCheck, Check, Loader2 } from "lucide-react";
+import { PhoneInput } from "@/components/phone-input";
 import { useState, type FormEvent } from "react";
 
 import { OptionButton } from "@/components/option-button";
@@ -116,7 +117,7 @@ export function AppointmentForm() {
           <div className="space-y-2"><Label htmlFor="ap-name">Your name <span className="text-primary">*</span></Label><Input id="ap-name" name="name" autoComplete="name" required /></div>
           <div className="space-y-2"><Label htmlFor="ap-company">Company / boutique</Label><Input id="ap-company" name="company" autoComplete="organization" /></div>
           <div className="space-y-2"><Label htmlFor="ap-email">Email address <span className="text-primary">*</span></Label><Input id="ap-email" name="email" type="email" autoComplete="email" required /></div>
-          <div className="space-y-2"><Label htmlFor="ap-phone">Phone number</Label><Input id="ap-phone" name="phone" type="tel" autoComplete="tel" /></div>
+          <div className="space-y-2"><Label htmlFor="ap-phone">Phone number</Label><PhoneInput id="ap-phone" /></div>
           <div className="space-y-2 sm:col-span-2"><Label htmlFor="ap-address">Address for our visit <span className="text-primary">*</span></Label><Textarea id="ap-address" name="visit_address" rows={3} autoComplete="street-address" required placeholder="Business name, building and street, town or city, postcode" /></div>
           <div className="space-y-2 sm:col-span-2"><Label htmlFor="ap-notes">Notes</Label><Textarea id="ap-notes" name="notes" rows={4} placeholder="Tell us what you'd like to review, or anything we should prepare in advance." /></div>
         </div>
