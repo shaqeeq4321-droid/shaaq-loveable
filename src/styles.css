@@ -1,0 +1,107 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Libre Baskerville", serif;
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-ring-offset-background: var(--background);
+  --color-ink: var(--ink);
+  --color-cream: var(--cream);
+}
+
+:root {
+  --radius: 0.25rem;
+  --background: oklch(0.975 0.012 82);
+  --foreground: oklch(0.19 0.012 43);
+  --card: oklch(0.99 0.007 82);
+  --card-foreground: oklch(0.19 0.012 43);
+  --popover: oklch(0.99 0.007 82);
+  --popover-foreground: oklch(0.19 0.012 43);
+  --primary: oklch(0.43 0.17 22);
+  --primary-foreground: oklch(0.98 0.012 82);
+  --secondary: oklch(0.935 0.025 79);
+  --secondary-foreground: oklch(0.23 0.016 42);
+  --muted: oklch(0.945 0.015 80);
+  --muted-foreground: oklch(0.47 0.02 48);
+  --accent: oklch(0.9 0.04 74);
+  --accent-foreground: oklch(0.27 0.03 35);
+  --destructive: oklch(0.57 0.22 27);
+  --destructive-foreground: oklch(0.98 0.01 80);
+  --border: oklch(0.84 0.025 74);
+  --input: oklch(0.79 0.028 73);
+  --ring: oklch(0.43 0.17 22);
+  --ink: oklch(0.17 0.012 43);
+  --cream: oklch(0.965 0.025 79);
+}
+
+@layer base {
+  * { border-color: var(--color-border); }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background-color: var(--color-background); color: var(--color-foreground); font-family: var(--font-sans); letter-spacing: 0; }
+  ::selection { background: color-mix(in oklab, var(--primary) 24%, transparent); }
+  a, button, input, textarea { outline-offset: 3px; }
+  input, textarea { background-color: var(--color-card); }
+}
+
+@utility font-display { font-family: var(--font-display); letter-spacing: 0; }
+@utility section-pad { padding-block: clamp(4.5rem, 9vw, 8rem); }
+@utility section-title { font-family: var(--font-display); font-size: clamp(2.15rem, 4vw, 4rem); line-height: 1.1; letter-spacing: 0; }
+@utility eyebrow { font-size: 0.68rem; line-height: 1; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--color-primary); }
+@utility nav-link { position: relative; font-size: 0.82rem; font-weight: 600; color: var(--color-muted-foreground); transition: color 200ms ease; &:hover { color: var(--color-foreground); } &::after { content: ""; position: absolute; inset-inline: 0; bottom: -0.65rem; height: 1px; transform: scaleX(0); background: var(--color-primary); transition: transform 200ms ease; } }
+@utility nav-link-active { color: var(--color-foreground); &::after { transform: scaleX(1); } }
+@utility logo-tile { background-color: var(--color-secondary); background-image: linear-gradient(90deg, color-mix(in oklab, var(--border) 40%, transparent) 1px, transparent 1px), linear-gradient(color-mix(in oklab, var(--border) 40%, transparent) 1px, transparent 1px); background-size: 7px 7px; border: 1px solid var(--color-border); }
+@utility hero-section { position: relative; overflow: hidden; background: var(--color-ink); }
+@utility hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 28%; filter: saturate(0.75); }
+@utility hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, color-mix(in oklab, var(--ink) 95%, transparent) 0%, color-mix(in oklab, var(--ink) 72%, transparent) 48%, color-mix(in oklab, var(--ink) 20%, transparent) 100%), linear-gradient(0deg, color-mix(in oklab, var(--ink) 50%, transparent), transparent 45%); }
+@utility page-intro { position: relative; overflow: hidden; background: var(--color-ink); &::after { content: ""; position: absolute; right: -7rem; bottom: -12rem; width: 32rem; height: 32rem; border: 1px solid color-mix(in oklab, var(--cream) 10%, transparent); transform: rotate(24deg); } }
+@utility cta-band { background: var(--color-primary); }
+@utility image-frame { aspect-ratio: 4/5; overflow: hidden; background: var(--color-secondary); }
+@utility image-frame-short { aspect-ratio: 4/4.2; }
+@utility product-card { min-width: 0; }
+@utility icon-link { display: grid; width: 2.5rem; height: 2.5rem; flex-shrink: 0; place-items: center; border: 1px solid var(--color-border); color: var(--color-primary); transition: all 200ms ease; & svg { width: 1rem; height: 1rem; } &:hover { border-color: var(--color-primary); background: var(--color-primary); color: var(--color-primary-foreground); } }
+@utility footer-heading { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: color-mix(in oklab, var(--cream) 50%, transparent); }
+@utility footer-brand { & span span:first-child { color: var(--color-cream); } }
+@utility social-button { display: grid; width: 2.5rem; height: 2.5rem; place-items: center; border: 1px solid color-mix(in oklab, var(--cream) 18%, transparent); color: color-mix(in oklab, var(--cream) 70%, transparent); transition: all 200ms ease; & svg { width: 1rem; height: 1rem; } &:hover { border-color: var(--color-cream); color: var(--color-cream); } }
+@utility contact-social { display: inline-flex; height: 3rem; align-items: center; gap: 0.6rem; border: 1px solid var(--color-border); padding-inline: 1rem; font-size: 0.82rem; font-weight: 600; color: var(--color-foreground); transition: all 200ms ease; & svg { width: 1rem; height: 1rem; color: var(--color-primary); } &:hover { border-color: var(--color-primary); } }
+
+@media (max-width: 640px) {
+  .hero-image { object-position: 62% center; }
+  .hero-overlay { background: linear-gradient(90deg, color-mix(in oklab, var(--ink) 88%, transparent), color-mix(in oklab, var(--ink) 48%, transparent)), linear-gradient(0deg, color-mix(in oklab, var(--ink) 65%, transparent), transparent 70%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+}
+@utility option-button { display: inline-flex; align-items: center; gap: 0.4rem; border: 1px solid var(--color-border); background: var(--color-card); padding: 0.5rem 0.85rem; font-size: 0.8rem; font-weight: 600; color: var(--color-foreground); transition: all 180ms ease; &:hover { border-color: var(--color-primary); color: var(--color-primary); } }
+@utility option-button-active { border-color: var(--color-primary); background: var(--color-primary); color: var(--color-primary-foreground); &:hover { color: var(--color-primary-foreground); } }
+@utility hotspot { position: absolute; display: none; align-items: center; gap: 0.55rem; font-size: 0.66rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: color-mix(in oklab, var(--cream) 80%, transparent); &::before { content: ""; width: 0.45rem; height: 0.45rem; border-radius: 9999px; background: var(--color-primary); box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 28%, transparent); } }
+@utility spec-list { display: grid; gap: 0.75rem; & li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0.7rem; font-size: 0.875rem; line-height: 1.6; color: var(--color-muted-foreground); } }
+
+@media (min-width: 1024px) {
+  .hotspot { display: inline-flex; }
+}
