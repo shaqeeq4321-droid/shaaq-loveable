@@ -1,4 +1,4 @@
 {
   "installCommand": "npm install",
-  "buildCommand": "NITRO_PRESET=vercel npm run build"
+  "buildCommand": "NITRO_PRESET=vercel npm run build && node scripts/fix-vercel-config.mjs"
 }
