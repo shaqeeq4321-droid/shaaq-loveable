@@ -27,7 +27,20 @@ export const saveQuote = createServerFn({ method: "POST" })
     if ((count ?? 0) >= 5) throw new Error("Please wait a few minutes before sending another enquiry.");
     const { error } = await supabaseAdmin.from("quote_requests").insert(data);
     if (error) { console.error("[supabase insert]", error.code, error.message, error.details, error.hint); throw new Error("Unable to save your enquiry. Please try again."); }
-    return { saved: true, notification: "not_configured" as const };
+    const { notifyOwner } = await import("./notify.server");
+    const notification = await notifyOwner({
+      subject: `New quote request: ${data.name} (${data.garment_type})`,
+      replyTo: data.email,
+      fields: [
+        ["Name", data.name], ["Email", data.email], ["Phone", data.phone], ["Company", data.company],
+        ["Garment", data.garment_type], ["Quantity", data.quantity], ["Sizes", data.sizes],
+        ["Fabric notes", data.fabric_notes], ["Stitching notes", data.stitching_notes],
+        ["Logo placement", data.logo_placement], ["Logo file", data.logo_url],
+        ["Specification", Object.entries(data.specification).map(([k, v]) => `${k}: ${v}`).join("\n")],
+        ["Message", data.message],
+      ],
+    });
+    return { saved: true, notification };
   });
 
 export const saveAppointment = createServerFn({ method: "POST" })
@@ -46,7 +59,17 @@ export const saveAppointment = createServerFn({ method: "POST" })
     if ((count ?? 0) >= 5) throw new Error("Please wait a few minutes before requesting another visit.");
     const { error } = await supabaseAdmin.from("appointments").insert(data);
     if (error) { console.error("[supabase insert]", error.code, error.message, error.details, error.hint); throw new Error("Unable to save your appointment. Please try again."); }
-    return { saved: true, notification: "not_configured" as const };
+    const { notifyOwner } = await import("./notify.server");
+    const notification = await notifyOwner({
+      subject: `New visit request: ${data.name} on ${data.preferred_date} ${data.preferred_time}`,
+      replyTo: data.email,
+      fields: [
+        ["Name", data.name], ["Email", data.email], ["Phone", data.phone], ["Company", data.company],
+        ["Preferred date", data.preferred_date], ["Preferred time", data.preferred_time],
+        ["Visit address", data.visit_address], ["Interests", data.interests.join(", ")], ["Notes", data.notes],
+      ],
+    });
+    return { saved: true, notification };
   });
 
 export const saveVehicleEnquiry = createServerFn({ method: "POST" })
@@ -70,5 +93,15 @@ export const saveVehicleEnquiry = createServerFn({ method: "POST" })
     }
     const { error } = await supabaseAdmin.from("vehicle_enquiries").insert(data);
     if (error) { console.error("[supabase insert]", error.code, error.message, error.details, error.hint); throw new Error("Unable to save your enquiry. Please try again."); }
-    return { saved: true, notification: "not_configured" as const };
+    const { notifyOwner } = await import("./notify.server");
+    const notification = await notifyOwner({
+      subject: `New vehicle enquiry: ${data.name}${data.vehicle_title ? ` (${data.vehicle_title})` : ""}`,
+      replyTo: data.email,
+      fields: [
+        ["Name", data.name], ["Email", data.email], ["Phone", data.phone],
+        ["Vehicle", data.vehicle_title], ["Looking for", data.desired_vehicle], ["Budget", data.budget],
+        ["Message", data.message],
+      ],
+    });
+    return { saved: true, notification };
   });
